@@ -1,4 +1,5 @@
 using Microsoft.EntityFrameworkCore;
+using OpenTelemetry.Metrics;
 using Orders.Api.Data;
 using Orders.Api.Endpoints;
 using Orders.Api.Services.Implementation;
@@ -11,6 +12,11 @@ builder.Services.AddOpenApi();
 
 builder.Services.AddScoped<IOrderService, OrderService>();
 
+builder.Services.AddOpenTelemetry()
+    .WithMetrics(metrics => metrics
+        .AddAspNetCoreInstrumentation()
+        .AddPrometheusExporter());
+
 var app = builder.Build();
 
 if (app.Environment.IsDevelopment())
@@ -19,4 +25,6 @@ if (app.Environment.IsDevelopment())
 }
 
 app.MapOrderEndpoints();
+app.MapPrometheusScrapingEndpoint();
+
 app.Run();
