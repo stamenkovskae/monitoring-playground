@@ -20,9 +20,9 @@ public static class OrderEndpoints
         return Results.Ok(orders);
     }
 
-    private static async Task<IResult> GetOrderById(Guid id, IOrderService orderService)
+    private static async Task<IResult> GetOrderById(Guid orderId, IOrderService orderService)
     {
-        var order = await orderService.GetOrderById(id);
+        var order = await orderService.GetOrderById(orderId);
         return Results.Ok(order);
     }
 
@@ -32,9 +32,9 @@ public static class OrderEndpoints
         return Results.Ok();
     }
 
-    private static async Task<IResult> DeleteOrder(Guid id, IOrderService orderService)
+    private static async Task<IResult> DeleteOrder(Guid orderId, IOrderService orderService)
     {
-        await orderService.DeleteOrder(id);
+        await orderService.DeleteOrder(orderId);
         return Results.Ok();
     }
 

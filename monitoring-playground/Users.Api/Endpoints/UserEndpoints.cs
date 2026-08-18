@@ -20,9 +20,9 @@ public static class UserEndpoints
         return Results.Ok(users);
     }
 
-    private static async Task<IResult> GetUserById(Guid id, IUserService userService)
+    private static async Task<IResult> GetUserById(Guid userId, IUserService userService)
     {
-        var user = await userService.GetUserById(id);
+        var user = await userService.GetUserById(userId);
         return Results.Ok(user);
     }
 
@@ -32,9 +32,9 @@ public static class UserEndpoints
         return Results.Ok();
     }
 
-    private static async Task<IResult> DeleteUser(Guid id, IUserService userService)
+    private static async Task<IResult> DeleteUser(Guid userId, IUserService userService)
     {
-        await userService.DeleteUser(id);
+        await userService.DeleteUser(userId);
         return Results.Ok();
     }
 }

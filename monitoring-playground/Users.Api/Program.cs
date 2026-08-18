@@ -1,5 +1,6 @@
 using Microsoft.EntityFrameworkCore;
 using Users.Api.Data;
+using Users.Api.Endpoints;
 using Users.Api.Services.Implementation;
 using Users.Api.Services.Interface;
 
@@ -18,5 +19,6 @@ if (app.Environment.IsDevelopment())
 }
 
 app.UseHttpsRedirection();
+app.MapUserEndpoints();
 
 app.Run();
