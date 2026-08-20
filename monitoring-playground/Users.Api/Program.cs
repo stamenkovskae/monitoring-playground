@@ -7,7 +7,10 @@ using Users.Api.Services.Interface;
 
 var builder = WebApplication.CreateBuilder(args);
 
-builder.Services.AddDbContext<UserDb>(opt => opt.UseInMemoryDatabase("UserDb"));
+builder.Services.AddDbContext<UserDb>(options =>
+    options.UseNpgsql(
+        builder.Configuration.GetConnectionString("Database")));
+
 builder.Services.AddOpenApi();
 
 builder.Services.AddScoped<IUserService, UserService>();

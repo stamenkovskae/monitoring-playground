@@ -7,7 +7,10 @@ using Orders.Api.Services.Interface;
 
 var builder = WebApplication.CreateBuilder(args);
 
-builder.Services.AddDbContext<OrderDb>(opt => opt.UseInMemoryDatabase("OrderDb"));
+builder.Services.AddDbContext<OrderDb>(options =>
+    options.UseNpgsql(
+        builder.Configuration.GetConnectionString("Database")));
+
 builder.Services.AddOpenApi();
 
 builder.Services.AddScoped<IOrderService, OrderService>();
