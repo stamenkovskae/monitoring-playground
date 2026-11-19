@@ -1,9 +1,17 @@
+using System.Diagnostics.Metrics;
 using Microsoft.EntityFrameworkCore;
 using Users.Api.Data;
 using Users.Api.Models;
 using Users.Api.Services.Interface;
 
 namespace Users.Api.Services.Implementation;
+
+public static class UserMetrics
+{
+    public const string MeterName = "Users.Api";
+    private static readonly Meter Meter = new(MeterName);
+    public static readonly Counter<long> Registered = Meter.CreateCounter<long>("users_registered_total");
+}
 
 public class UserService(UserDb userDb) : IUserService
 {
@@ -23,6 +31,7 @@ public class UserService(UserDb userDb) : IUserService
         {
             await userDb.Users.AddAsync(user);
             await userDb.SaveChangesAsync();
+            UserMetrics.Registered.Add(1);
             return true;
         }
         catch (Exception e)

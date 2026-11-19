@@ -18,6 +18,9 @@ builder.Services.AddScoped<IUserService, UserService>();
 builder.Services.AddOpenTelemetry()
     .WithMetrics(metrics => metrics
         .AddAspNetCoreInstrumentation()
+        .AddRuntimeInstrumentation()
+        .AddProcessInstrumentation()
+        .AddMeter(UserMetrics.MeterName)
         .AddPrometheusExporter());
 
 var app = builder.Build();

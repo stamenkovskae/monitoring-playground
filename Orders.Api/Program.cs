@@ -18,6 +18,9 @@ builder.Services.AddScoped<IOrderService, OrderService>();
 builder.Services.AddOpenTelemetry()
     .WithMetrics(metrics => metrics
         .AddAspNetCoreInstrumentation()
+        .AddRuntimeInstrumentation()
+        .AddProcessInstrumentation()
+        .AddMeter(OrderMetrics.MeterName)
         .AddPrometheusExporter());
 
 var app = builder.Build();
