@@ -1,0 +1,12 @@
+global:
+  scrape_interval: 5s
+
+scrape_configs:
+  # job label == "service" in the Metricly UI
+  - job_name: orders-api
+    static_configs:
+      - targets: ["host.docker.internal:5084"]
+
+  - job_name: users-api
+    static_configs:
+      - targets: ["host.docker.internal:5026"]
