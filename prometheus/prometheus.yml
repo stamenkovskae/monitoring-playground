@@ -1,11 +1,11 @@
 global:
   scrape_interval: 5s
   # Prometheus 3 keeps OTel's dotted names (http.server.request.duration_seconds_count).
-  # Ask for underscores so Metricly's PromQL stays readable and matches its compiler.
+  # Ask for underscores so Simplana's PromQL stays readable and matches its compiler.
   metric_name_escaping_scheme: underscores
 
 scrape_configs:
-  # job label == "service" in the Metricly UI
+  # job label == "service" in the Simplana UI
   - job_name: orders-api
     static_configs:
       - targets: ["host.docker.internal:5084"]
